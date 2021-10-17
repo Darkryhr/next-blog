@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
 html,
 body,
 div,
@@ -130,4 +132,10 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+  color: #f4f4f4;
+}
+
+body {
+  background-color: #1b2021;
 }

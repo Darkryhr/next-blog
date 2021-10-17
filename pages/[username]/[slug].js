@@ -4,6 +4,8 @@ import PostContent from '../../components/PostContent';
 import AuthCheck from '../../components/AuthCheck';
 import HeartButton from '../../components/HeartButton';
 import Link from 'next/link';
+import { Card } from '../../components/styled/Card';
+import styled from 'styled-components';
 
 export async function getStaticProps({ params }) {
   const { username, slug } = params;
@@ -53,11 +55,11 @@ export default function Post(props) {
 
   const post = realtimePost || props.post;
   return (
-    <main>
-      <section>
+    <Container>
+      <ContentSection>
         <PostContent post={post} />
-      </section>
-      <aside>
+      </ContentSection>
+      <Card>
         <p>
           <strong>{post.heartCount || 0} 🤍</strong>
         </p>
@@ -70,7 +72,16 @@ export default function Post(props) {
         >
           <HeartButton postRef={postRef} />
         </AuthCheck>
-      </aside>
-    </main>
+      </Card>
+    </Container>
   );
 }
+
+const Container = styled.main`
+  display: flex;
+  min-height: 100vh;
+`;
+
+const ContentSection = styled.section`
+  width: 80%;
+`;

@@ -4,8 +4,8 @@ const theme = {
   colors: {
     primary: {
       base: '#181818',
-      darker: '#000000',
-      lighter: '#2b2b2b',
+      darker: '#212529',
+      lighter: '#1f363d',
     },
     accent: {
       base: '#fb8b24',

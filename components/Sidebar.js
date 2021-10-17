@@ -3,40 +3,49 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { UserContext } from '../lib/context';
 import { useContext } from 'react';
+import { LinkButton } from './styled/shared';
+import { BiHome, BiPlus } from 'react-icons/bi';
+
 const Sidebar = () => {
   const { user, username } = useContext(UserContext);
   return (
     <Nav>
-      <ul>
-        <li>
+      <NavMenu>
+        <NavItem>
           <Link href='/' passHref>
-            <button>Home</button>
+            <LinkButton>
+              <BiHome size={'28px'} />
+            </LinkButton>
           </Link>
-        </li>
+        </NavItem>
 
         {username && (
           <>
-            <li>
+            <NavItem>
               <Link href='/admin' passHref>
-                <button>Write</button>
+                <LinkButton>
+                  <BiPlus size={'28px'} />
+                </LinkButton>
               </Link>
-            </li>
-            <li>
+            </NavItem>
+            <NavItem>
               <Link href={`/${username}`} passHref>
-                <button>user</button>
+                <LinkButton>
+                  <ImageCustom src={user?.photoURL} alt='avatar' />
+                </LinkButton>
               </Link>
-            </li>
+            </NavItem>
           </>
         )}
 
         {!username && (
-          <li>
+          <NavItem>
             <Link href='/enter' passHref>
-              <button>Log In</button>
+              <LinkButton>Log In</LinkButton>
             </Link>
-          </li>
+          </NavItem>
         )}
-      </ul>
+      </NavMenu>
     </Nav>
   );
 };
@@ -49,4 +58,28 @@ const Nav = styled.nav`
   height: 100vh;
   position: fixed;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const NavMenu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const NavItem = styled.li`
+  color: white;
+  margin: 1em 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const ImageCustom = styled.img`
+  border-radius: 50px;
+  width: 38px;
 `;

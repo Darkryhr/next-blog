@@ -16,6 +16,7 @@ export default Layout;
 const Main = styled.div`
   position: absolute;
   top: 0;
-  left: 90px;
-  width: calc(100% - 90px);
+  left: 70px;
+  width: calc(100% - 70px);
+  padding: 0 5vw;
 `;

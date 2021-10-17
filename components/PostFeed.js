@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { Card, CardFooter } from './styled/Card';
+import { Subtitle, Title, Info } from './styled/shared';
 
 const PostFeed = ({ posts, admin }) => {
   return posts
@@ -14,24 +16,24 @@ const PostItem = ({ post }) => {
   const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
   return (
-    <div>
+    <Card>
       <Link href={`/${post.username}`}>
         <a>
-          <strong>By @{post.username}</strong>
+          <Subtitle>By @{post.username}</Subtitle>
         </a>
       </Link>
       <Link href={`/${post.username}/${post.slug}`} passHref>
-        <h2>
+        <Title>
           <a>{post.title}</a>
-        </h2>
+        </Title>
       </Link>
-      <footer>
-        <span>
+      <CardFooter>
+        <Info>
           {wordCount} words. {minutesToRead} min read
-        </span>
+        </Info>
         <span>💗 {post.heartCount || 0} Hearts</span>
-      </footer>
-    </div>
+      </CardFooter>
+    </Card>
   );
 };
 

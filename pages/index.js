@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { firestore, postToJSON, fromMillis } from '../lib/firebase';
 import PostFeed from '../components/PostFeed';
 import Loader from '../components/Loader';
+import { Button } from '../components/styled/shared';
 
 // max post to query per page
-const _LIMIT = 5;
+const _LIMIT = 1;
 
 export async function getServerSideProps(context) {
   const postsQuery = firestore
@@ -59,7 +60,7 @@ export default function Home(props) {
     <main>
       <PostFeed posts={posts} />
       {!loading && !postsEnd && (
-        <button onClick={getMorePosts}>Load More</button>
+        <Button onClick={getMorePosts}>Load More</Button>
       )}
       <Loader show={loading} />
       {postsEnd && 'You have reached the end!'}
