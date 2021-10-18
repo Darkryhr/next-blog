@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { UserContext } from '../lib/context';
 import { useContext } from 'react';
 import { LinkButton } from './styled/shared';
-import { BiHome, BiPlus } from 'react-icons/bi';
+import { BiHome, BiPlus, BiLogOut, BiLogIn } from 'react-icons/bi';
 
 const Sidebar = () => {
   const { user, username } = useContext(UserContext);
@@ -29,6 +29,13 @@ const Sidebar = () => {
               </Link>
             </NavItem>
             <NavItem>
+              <Link href='/enter' passHref>
+                <LinkButton>
+                  <BiLogOut size={'28px'} />
+                </LinkButton>
+              </Link>
+            </NavItem>
+            <NavItem>
               <Link href={`/${username}`} passHref>
                 <LinkButton>
                   <ImageCustom src={user?.photoURL} alt='avatar' />
@@ -41,7 +48,9 @@ const Sidebar = () => {
         {!username && (
           <NavItem>
             <Link href='/enter' passHref>
-              <LinkButton>Log In</LinkButton>
+              <LinkButton>
+                <BiLogIn size={'28px'} />
+              </LinkButton>
             </Link>
           </NavItem>
         )}
@@ -69,6 +78,7 @@ const NavMenu = styled.ul`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: 0.5em;
 `;
 
 const NavItem = styled.li`

@@ -7,6 +7,13 @@ import { useRouter } from 'next/router';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import kebabCase from 'lodash.kebabcase';
 import toast from 'react-hot-toast';
+import styled from 'styled-components';
+import {
+  Button,
+  Info,
+  StrokedButton,
+  Title,
+} from '../../components/styled/shared';
 
 const AdminPostsPage = () => {
   return (
@@ -33,7 +40,7 @@ function PostList() {
 
   return (
     <>
-      <h1>Manage Posts</h1>
+      <Title>Manage Posts</Title>
       <PostFeed posts={posts} admin />
     </>
   );
@@ -78,20 +85,45 @@ function CreateNewPost() {
     router.push(`/admin/${slug}`);
   };
 
+  console.log(title);
   return (
-    <form onSubmit={createPost}>
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder='No Clickbait please'
-      />
-      <p>
-        <strong>Slug: </strong>
-        {slug}
-      </p>
-      <button type='submit' disabled={!isValid}>
+    <Form onSubmit={createPost}>
+      <InputContainer>
+        <Input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder='No Clickbait please'
+        />
+      </InputContainer>
+      <StrokedButton type='submit' disabled={!isValid}>
         Create
-      </button>
-    </form>
+      </StrokedButton>
+    </Form>
   );
 }
+
+const Input = styled.input`
+  width: 98%;
+  border: none;
+  outline: none;
+  color: black;
+  font-size: 0.9em;
+`;
+
+const InputContainer = styled.div`
+  width: 100%;
+  height: 40px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  margin-top: 1em;
+  margin-bottom: 2em;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;

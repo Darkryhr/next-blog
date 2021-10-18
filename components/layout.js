@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import Footer from './Footer';
 import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => {
   return (
     <>
       <Sidebar />
-      <Main>{children}</Main>
+      <Main>
+        {children}
+        {/* <Footer /> */}
+      </Main>
     </>
   );
 };
@@ -18,5 +22,5 @@ const Main = styled.div`
   top: 0;
   left: 70px;
   width: calc(100% - 70px);
-  padding: 0 5vw;
+  padding: 1rem 5vw;
 `;

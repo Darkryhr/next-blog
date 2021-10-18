@@ -3,6 +3,7 @@ import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { UserContext } from '../lib/context';
 import { useContext } from 'react';
 import { debounce } from 'lodash';
+import { StrokedButton } from '../components/styled/shared';
 
 const EnterPage = (props) => {
   const { user, username } = useContext(UserContext);
@@ -29,10 +30,10 @@ const SignInButton = () => {
     await auth.signInWithPopup(googleAuthProvider);
   };
 
-  return <button onClick={signInGoogle}>google sign in</button>;
+  return <StrokedButton onClick={signInGoogle}>Sign In</StrokedButton>;
 };
 const SignOutButton = () => {
-  return <button onClick={() => auth.signOut()}>sign out</button>;
+  return <StrokedButton onClick={() => auth.signOut()}>Sign Out</StrokedButton>;
 };
 const UsernameForm = () => {
   const [formValue, setFormValue] = useState('');
@@ -108,9 +109,9 @@ const UsernameForm = () => {
             loading={loading}
           />
 
-          <button type='submit' disabled={!valid}>
+          <StrokedButton type='submit' disabled={!valid}>
             Submit
-          </button>
+          </StrokedButton>
 
           <h3>Debug state</h3>
           <div>

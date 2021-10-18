@@ -8,6 +8,8 @@ import toast from 'react-hot-toast';
 import AuthCheck from '../../components/AuthCheck';
 import { auth, firestore, serverTimeStamp } from '../../lib/firebase';
 import ImageUploader from '../../components/ImageUploader';
+import { Title, Subtitle, StrokedButton } from '../../components/styled/shared';
+import styled from 'styled-components';
 
 const AdminEditPage = () => {
   return (
@@ -38,8 +40,8 @@ function PostManager() {
       {post && (
         <>
           <section>
-            <h1>{post.title}</h1>
-            <p>{post.title}</p>
+            <Title>{post.title}</Title>
+            <Subtitle>ID: {post.slug}</Subtitle>
             <PostForm
               postRef={postRef}
               defaultValues={post}
@@ -60,7 +62,6 @@ function PostForm({ defaultValues, postRef, preview }) {
   });
 
   const { isValid, isDirty, errors } = formState;
-  console.log(errors);
   const updatePost = async ({ content, published }) => {
     await postRef.update({
       content,
@@ -74,7 +75,7 @@ function PostForm({ defaultValues, postRef, preview }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(updatePost)}>
+    <Form onSubmit={handleSubmit(updatePost)}>
       {preview && (
         <div>
           <ReactMarkdown>{watch('content')}</ReactMarkdown>
@@ -82,7 +83,7 @@ function PostForm({ defaultValues, postRef, preview }) {
       )}
       <div>
         <ImageUploader />
-        <textarea
+        <TextArea
           {...register('content', {
             maxLength: {
               value: 20000,
@@ -97,18 +98,81 @@ function PostForm({ defaultValues, postRef, preview }) {
               message: 'Content is required',
             },
           })}
-        ></textarea>
+        ></TextArea>
 
         {errors.content && <p>{errors.content.message}</p>}
 
-        <fieldset>
-          <input type='checkbox' {...register('published')} />
-          <label>published</label>
-        </fieldset>
-        <button type='submit' disabled={!isValid || !isDirty}>
+        <CheckBoxWrapper>
+          <CheckBox id='checkbox' type='checkbox' {...register('published')} />
+
+          {/* <input type='checkbox' {...register('published')} /> */}
+          <CheckBoxLabel htmlFor='checkbox' />
+          <label>Published</label>
+        </CheckBoxWrapper>
+        <StrokedButton type='submit' disabled={!isValid || !isDirty}>
           Save Changes
-        </button>
+        </StrokedButton>
       </div>
-    </form>
+    </Form>
   );
 }
+
+const CheckBoxWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 1em;
+`;
+
+const CheckBoxLabel = styled.label`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 26px;
+  border-radius: 15px;
+  background: #bebebe;
+  cursor: pointer;
+  &::after {
+    content: '';
+    display: block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 4px;
+    background: #ffffff;
+    transition: 0.3s all;
+  }
+`;
+
+const CheckBox = styled.input`
+  opacity: 0;
+  z-index: 1;
+  border-radius: 15px;
+  width: 42px;
+  height: 26px;
+  cursor: pointer;
+  &:checked + ${CheckBoxLabel} {
+    background: ${({ theme }) => theme.colors.accent.base};
+    &::after {
+      content: '';
+      display: block;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      margin-left: 21px;
+      transition: 0.2s;
+    }
+  }
+`;
+
+const Form = styled.form`
+  width: 80%;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 30vh;
+  color: black;
+  border-radius: 8px;
+`;

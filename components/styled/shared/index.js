@@ -30,6 +30,25 @@ export const Button = styled.button`
   }
 `;
 
+export const StrokedButton = styled.button`
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: medium;
+  border: none;
+  margin: 1em 0;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: 0.3s all;
+  background: ${(props) => props.theme.colors.accent.base};
+  &:hover {
+    filter: saturate(1.5);
+  }
+  &:disabled {
+    background: ${(props) => props.theme.colors.primary.lighter};
+    cursor: auto;
+  }
+`;
+
 export const HeartBtn = styled.button`
   border-radius: 50px;
   font-weight: 600;

@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, CardFooter } from './styled/Card';
 import { Subtitle, Title, Info } from './styled/shared';
+import { BiHeart } from 'react-icons/bi';
+import styled from 'styled-components';
 
 const PostFeed = ({ posts, admin }) => {
   return posts
@@ -31,10 +33,20 @@ const PostItem = ({ post }) => {
         <Info>
           {wordCount} words. {minutesToRead} min read
         </Info>
-        <span>💗 {post.heartCount || 0} Hearts</span>
+        <HeartSpan>
+          <BiHeart size={20} />
+          {post.heartCount || 0}
+        </HeartSpan>
       </CardFooter>
     </Card>
   );
 };
 
 export default PostFeed;
+
+const HeartSpan = styled.span`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 2.5vw;
+`;
