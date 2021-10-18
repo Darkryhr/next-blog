@@ -4,13 +4,15 @@ import { Subtitle, Title } from './styled/shared';
 
 const UserProfile = ({ user }) => {
   return (
-    <div>
+    <ProfileWrapper>
       <ProfileImage src={user?.photoURL} alt='avatar' />
-      <p>
-        <Subtitle>@{user.username}</Subtitle>
-      </p>
-      <Title>{user.displayName}</Title>
-    </div>
+      <InfoWrapper>
+        <p>
+          <Subtitle>@{user.username}</Subtitle>
+        </p>
+        <Title>{user.displayName}</Title>
+      </InfoWrapper>
+    </ProfileWrapper>
   );
 };
 
@@ -19,4 +21,15 @@ export default UserProfile;
 const ProfileImage = styled.img`
   border-radius: 50px;
   margin: 1em 0;
+`;
+
+const ProfileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.4em;
 `;

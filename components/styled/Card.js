@@ -10,7 +10,8 @@ export const Card = styled.div`
 export const CardFooter = styled.footer`
   display: flex;
   justify-content: space-between;
-  margin-top: 1em;
+  align-items: center;
+  /* margin-top: 1em; */
 `;
 
 export const AsideCard = styled.aside``;

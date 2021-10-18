@@ -4,7 +4,6 @@ import PostContent from '../../components/PostContent';
 import AuthCheck from '../../components/AuthCheck';
 import HeartButton from '../../components/HeartButton';
 import Link from 'next/link';
-import { Card } from '../../components/styled/Card';
 import styled from 'styled-components';
 
 export async function getStaticProps({ params }) {
@@ -59,7 +58,7 @@ export default function Post(props) {
       <ContentSection>
         <PostContent post={post} />
       </ContentSection>
-      <Card>
+      <HeartWrapper>
         <p>
           <strong>{post.heartCount || 0} 🤍</strong>
         </p>
@@ -72,16 +71,22 @@ export default function Post(props) {
         >
           <HeartButton postRef={postRef} />
         </AuthCheck>
-      </Card>
+      </HeartWrapper>
     </Container>
   );
 }
 
 const Container = styled.main`
   display: flex;
-  min-height: 100vh;
+  flex-direction: column;
 `;
 
 const ContentSection = styled.section`
-  width: 80%;
+  padding: 1em 0;
+`;
+
+const HeartWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;

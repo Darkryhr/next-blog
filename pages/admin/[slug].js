@@ -71,7 +71,11 @@ function PostForm({ defaultValues, postRef, preview }) {
 
     reset({ content, published });
 
-    toast.success('Post Updated Successfully');
+    toast.success('Post Updated Successfully', {
+      style: {
+        fontFamily: 'Rubik',
+      },
+    });
   };
 
   return (

@@ -22,7 +22,7 @@ export const Button = styled.button`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text.base};
   cursor: pointer;
-  padding: 1.5em 2em;
+  padding: 1em 1.7em;
   transition: 0.3s all;
   font-size: medium;
   &:hover {
@@ -64,6 +64,7 @@ export const HeartBtn = styled.button`
   padding: 10px 30px;
   cursor: pointer;
   transition: 0.3s all;
+  margin-left: 10px;
   &:hover {
     filter: saturate(1.5);
   }

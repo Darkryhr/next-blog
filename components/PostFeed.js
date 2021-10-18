@@ -34,7 +34,7 @@ const PostItem = ({ post }) => {
           {wordCount} words. {minutesToRead} min read
         </Info>
         <HeartSpan>
-          <BiHeart size={20} />
+          <BiHeart size={'20'} />
           {post.heartCount || 0}
         </HeartSpan>
       </CardFooter>
@@ -48,5 +48,5 @@ const HeartSpan = styled.span`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 2.5vw;
+  width: 35px;
 `;

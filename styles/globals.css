@@ -139,3 +139,7 @@ a {
 body {
   background-color: #1b2021;
 }
+
+.tooltip {
+  font-family: 'Rubik', sans-serif;
+}

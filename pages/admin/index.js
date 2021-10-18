@@ -80,12 +80,15 @@ function CreateNewPost() {
 
     await ref.set(data);
 
-    toast.success('Post Created!');
+    toast.success('Post Created!', {
+      style: {
+        fontFamily: 'Rubik',
+      },
+    });
 
     router.push(`/admin/${slug}`);
   };
 
-  console.log(title);
   return (
     <Form onSubmit={createPost}>
       <InputContainer>
@@ -111,19 +114,18 @@ const Input = styled.input`
 `;
 
 const InputContainer = styled.div`
-  width: 100%;
+  width: 90%;
   height: 40px;
   background: white;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  margin-top: 1em;
-  margin-bottom: 2em;
+  margin-right: 20px;
 `;
 
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
 `;

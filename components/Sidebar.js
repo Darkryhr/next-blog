@@ -4,38 +4,54 @@ import Link from 'next/link';
 import { UserContext } from '../lib/context';
 import { useContext } from 'react';
 import { LinkButton } from './styled/shared';
-import { BiHome, BiPlus, BiLogOut, BiLogIn } from 'react-icons/bi';
+import { BiEdit, BiLogOut, BiLogIn } from 'react-icons/bi';
+import Image from 'next/image';
+import ReactTooltip from 'react-tooltip';
 
 const Sidebar = () => {
   const { user, username } = useContext(UserContext);
   return (
     <Nav>
       <NavMenu>
-        <NavItem>
+        <NavItem data-tip='Home'>
           <Link href='/' passHref>
             <LinkButton>
-              <BiHome size={'28px'} />
+              <Image src='/logo.svg' alt='logo' height='35px' width='35px' />
             </LinkButton>
           </Link>
         </NavItem>
 
         {username && (
           <>
-            <NavItem>
+            <NavItem data-tip='Manage Posts'>
+              <ReactTooltip
+                className='tooltip'
+                place='right'
+                type='dark'
+                effect='solid'
+              />
+
               <Link href='/admin' passHref>
                 <LinkButton>
-                  <BiPlus size={'28px'} />
+                  <BiEdit size={'28px'} />
                 </LinkButton>
               </Link>
             </NavItem>
-            <NavItem>
+            <NavItem data-tip='Log Out'>
               <Link href='/enter' passHref>
                 <LinkButton>
                   <BiLogOut size={'28px'} />
                 </LinkButton>
               </Link>
             </NavItem>
-            <NavItem>
+            <NavItem data-tip='Profile'>
+              <ReactTooltip
+                className='tooltip'
+                place='right'
+                type='dark'
+                effect='solid'
+              />
+
               <Link href={`/${username}`} passHref>
                 <LinkButton>
                   <ImageCustom src={user?.photoURL} alt='avatar' />
@@ -46,7 +62,14 @@ const Sidebar = () => {
         )}
 
         {!username && (
-          <NavItem>
+          <NavItem data-tip='Log In'>
+            <ReactTooltip
+              className='tooltip'
+              place='right'
+              type='dark'
+              effect='solid'
+            />
+
             <Link href='/enter' passHref>
               <LinkButton>
                 <BiLogIn size={'28px'} />
