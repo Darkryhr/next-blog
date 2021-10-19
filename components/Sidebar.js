@@ -93,6 +93,7 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 99;
 `;
 
 const NavMenu = styled.ul`

@@ -4,7 +4,9 @@ export const Card = styled.div`
   display: block;
   background: ${({ theme }) => theme.colors.primary.lighter};
   padding: 2em 2em;
-  margin: 3em 0;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  z-index: 0;
 `;
 
 export const CardFooter = styled.footer`

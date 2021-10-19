@@ -122,6 +122,7 @@ const InputContainer = styled.div`
   align-items: center;
   border-radius: 50px;
   margin-right: 20px;
+  padding: 0 1em;
 `;
 
 const Form = styled.form`
