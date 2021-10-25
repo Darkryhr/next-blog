@@ -14,8 +14,8 @@ const PostContent = ({ post }) => {
       <Title>{post.title}</Title>
       <Subtitle>
         Written by{' '}
-        <Link href={`/${post.username}/`}>
-          <a>@{post.username}</a>
+        <Link href={`/${post.username}/`} passHref>
+          @{post.username}
         </Link>{' '}
         on {moment(createdAt).format('MMMM Do YYYY')}
       </Subtitle>

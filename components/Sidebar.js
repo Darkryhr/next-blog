@@ -24,12 +24,12 @@ const Sidebar = () => {
         {username && (
           <>
             <NavItem data-tip='Manage Posts'>
-              <ReactTooltip
+              {/* <ReactTooltip
                 className='tooltip'
                 place='right'
                 type='dark'
                 effect='solid'
-              />
+              /> */}
 
               <Link href='/admin' passHref>
                 <LinkButton>
@@ -45,12 +45,12 @@ const Sidebar = () => {
               </Link>
             </NavItem>
             <NavItem data-tip='Profile'>
-              <ReactTooltip
+              {/* <ReactTooltip
                 className='tooltip'
                 place='right'
                 type='dark'
                 effect='solid'
-              />
+              /> */}
 
               <Link href={`/${username}`} passHref>
                 <LinkButton>
@@ -63,12 +63,12 @@ const Sidebar = () => {
 
         {!username && (
           <NavItem data-tip='Log In'>
-            <ReactTooltip
+            {/* <ReactTooltip
               className='tooltip'
               place='right'
               type='dark'
               effect='solid'
-            />
+            /> */}
 
             <Link href='/enter' passHref>
               <LinkButton>

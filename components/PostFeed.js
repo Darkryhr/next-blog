@@ -19,15 +19,11 @@ const PostItem = ({ post }) => {
 
   return (
     <Card>
-      <Link href={`/${post.username}`}>
-        <a>
-          <Subtitle>By @{post.username}</Subtitle>
-        </a>
+      <Link href={`/${post.username}`} passHref>
+        <Subtitle>By @{post.username}</Subtitle>
       </Link>
       <Link href={`/${post.username}/${post.slug}`} passHref>
-        <Title>
-          <a>{post.title}</a>
-        </Title>
+        <Title>{post.title}</Title>
       </Link>
       <CardFooter>
         <Info>
