@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
       <Theme>
         <Head>
           <link rel='shortcut icon' href='/logo.svg' />
+          <title>Vex | Just Write</title>
         </Head>
         <Layout>
           <Component {...pageProps} />
