@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { Subtitle, Title } from './styled/shared';
-import { parseISO, format } from 'date-fns';
+import { LinkStyled, Subtitle, Heading1 } from './styled/shared';
+import { format } from 'date-fns';
 
 const PostContent = ({ post }) => {
   const createdAt =
@@ -12,11 +12,11 @@ const PostContent = ({ post }) => {
 
   return (
     <>
-      <Title>{post.title}</Title>
+      <Heading1>{post.title}</Heading1>
       <Subtitle>
         Written by{' '}
         <Link href={`/${post.username}/`} passHref>
-          <a>@{post.username}</a>
+          <LinkStyled>@{post.username}</LinkStyled>
         </Link>{' '}
         on <time dateTime={createdAt}>{format(createdAt, 'dd/MM/yyyy')}</time>
       </Subtitle>

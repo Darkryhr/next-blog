@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Nav, NavItem, NavLogo, Avatar } from './styled/sidebarStyles';
 import { UserContext } from '../lib/context';
@@ -10,6 +10,11 @@ import ReactTooltip from 'react-tooltip';
 
 const Sidebar = () => {
   const { user, username } = useContext(UserContext);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    //* check Component mounted before activating tooltip
+    setLoaded(true);
+  }, []);
   return (
     <Nav>
       <NavLogo data-tip='Home'>
@@ -23,13 +28,16 @@ const Sidebar = () => {
       {username && (
         <>
           <NavItem data-tip='Manage Posts'>
-            {/* <ReactTooltip
+            {loaded ? (
+              <ReactTooltip
                 className='tooltip'
                 place='right'
                 type='dark'
                 effect='solid'
-              /> */}
-
+              />
+            ) : (
+              ''
+            )}
             <Link href='/admin' passHref>
               <LinkButton>
                 <BiEdit size={28} />
@@ -38,12 +46,16 @@ const Sidebar = () => {
           </NavItem>
 
           <NavItem data-tip='Profile'>
-            {/* <ReactTooltip
+            {loaded ? (
+              <ReactTooltip
                 className='tooltip'
                 place='right'
                 type='dark'
                 effect='solid'
-              /> */}
+              />
+            ) : (
+              ''
+            )}
 
             <Link href={`/${username}`} passHref>
               <LinkButton>
@@ -55,14 +67,17 @@ const Sidebar = () => {
       )}
 
       {!username && (
-        <NavItem data-tip='Log In'>
-          {/* <ReactTooltip
+        <NavItem data-tip='Login'>
+          {loaded ? (
+            <ReactTooltip
               className='tooltip'
               place='right'
               type='dark'
               effect='solid'
-            /> */}
-
+            />
+          ) : (
+            ''
+          )}
           <Link href='/enter' passHref>
             <LinkButton>
               <BiLogIn size={'28px'} />

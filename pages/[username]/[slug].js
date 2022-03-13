@@ -5,6 +5,7 @@ import AuthCheck from '../../components/AuthCheck';
 import HeartButton from '../../components/HeartButton';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { Button } from '../../components/styled/shared';
 
 export async function getStaticProps({ params }) {
   const { username, slug } = params;
@@ -30,7 +31,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const snapshot = await firestore.collectionGroup('posts').get();
 
-  const paths = snapshot.docs.map((doc) => {
+  const paths = snapshot.docs.map(doc => {
     const { slug, username } = doc.data();
     return {
       params: { username, slug },
@@ -65,7 +66,7 @@ export default function Post(props) {
         <AuthCheck
           fallback={
             <Link href='/enter' passHref>
-              <button>Sign Up</button>
+              <Button>Sign Up</Button>
             </Link>
           }
         >

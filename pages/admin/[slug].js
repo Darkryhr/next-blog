@@ -8,7 +8,12 @@ import toast from 'react-hot-toast';
 import AuthCheck from '../../components/AuthCheck';
 import { auth, firestore, serverTimeStamp } from '../../lib/firebase';
 import ImageUploader from '../../components/ImageUploader';
-import { Title, Subtitle, StrokedButton } from '../../components/styled/shared';
+import {
+  Title,
+  Subtitle,
+  StrokedButton,
+  Heading1,
+} from '../../components/styled/shared';
 import styled from 'styled-components';
 
 const AdminEditPage = () => {
@@ -40,7 +45,7 @@ function PostManager() {
       {post && (
         <>
           <section>
-            <Title>{post.title}</Title>
+            <Heading1>{post.title}</Heading1>
             <Subtitle>ID: {post.slug}</Subtitle>
             <PostForm
               postRef={postRef}

@@ -8,12 +8,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import kebabCase from 'lodash.kebabcase';
 import toast from 'react-hot-toast';
 import styled from 'styled-components';
-import {
-  Button,
-  Info,
-  StrokedButton,
-  Title,
-} from '../../components/styled/shared';
+import { StrokedButton, Heading1 } from '../../components/styled/shared';
 
 const AdminPostsPage = () => {
   return (
@@ -36,11 +31,11 @@ function PostList() {
   const query = ref.orderBy('createdAt');
   const [querySnapshot] = useCollection(query);
 
-  const posts = querySnapshot?.docs.map((doc) => doc.data());
+  const posts = querySnapshot?.docs.map(doc => doc.data());
 
   return (
     <>
-      <Title>Manage Posts</Title>
+      <Heading1>Manage Posts</Heading1>
       <PostFeed posts={posts} admin />
     </>
   );
@@ -57,7 +52,7 @@ function CreateNewPost() {
   //Validate length
   const isValid = title.length > 3 && title.length < 100;
 
-  const createPost = async (e) => {
+  const createPost = async e => {
     e.preventDefault();
     const uid = auth.currentUser.uid;
     const ref = firestore
@@ -94,7 +89,7 @@ function CreateNewPost() {
       <InputContainer>
         <Input
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={e => setTitle(e.target.value)}
           placeholder='No Clickbait please'
         />
       </InputContainer>

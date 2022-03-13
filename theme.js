@@ -14,7 +14,7 @@ const theme = {
     },
     text: {
       base: '#f4f4f4',
-      darker: '#efefef',
+      darker: '#d6d6d6',
       lighter: '#ffffff',
     },
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Subtitle, Title } from './styled/shared';
+import { Heading1, Subtitle } from './styled/shared';
 import { auth } from '../lib/firebase';
 import { LogoutButton } from '../components/styled/shared';
 import { useContext } from 'react';
@@ -8,15 +8,18 @@ import { UserContext } from '../lib/context';
 
 const UserProfile = ({ user }) => {
   const { username } = useContext(UserContext);
-  console.log(username);
   return (
     <ProfileWrapper>
-      <ProfileImage src={user?.photoURL} alt='avatar' />
+      {user?.photoURL ? (
+        <ProfileImage src={user?.photoURL} alt='avatar' />
+      ) : (
+        <Placeholder>
+          <Heading1>{user.username.slice(0, 1)}</Heading1>
+        </Placeholder>
+      )}
       <InfoWrapper>
-        <p>
-          <Subtitle>@{user.username}</Subtitle>
-        </p>
-        <Title>{user.displayName}</Title>
+        <Subtitle>@{user.username}</Subtitle>
+        <Heading1 style={{ padding: 0 }}>{user.displayName}</Heading1>
         {username === user.username ? (
           <LogoutButton onClick={() => auth.signOut()}>Logout</LogoutButton>
         ) : (
@@ -30,18 +33,28 @@ const UserProfile = ({ user }) => {
 export default UserProfile;
 
 const ProfileImage = styled.img`
-  border-radius: 50px;
-  margin: 1em 0;
+  border-radius: 16px;
+  width: 100px;
+  height: 100px;
+`;
+
+const Placeholder = styled.div`
+  border-radius: 16px;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
 `;
 
 const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem 0;
+  padding-bottom: 2rem;
 `;
 
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   margin-left: 1.4em;
+  height: 100px;
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardFooter } from './styled/Card';
-import { Subtitle, Title, Info } from './styled/shared';
+import { Subtitle, Info, Heading1, PostHeading } from './styled/shared';
 import { BiHeart } from 'react-icons/bi';
 import styled from 'styled-components';
 
@@ -20,7 +20,7 @@ const PostItem = ({ post }) => {
         <Subtitle>by @{post.username}</Subtitle>
       </Link>
       <Link href={`/${post.username}/${post.slug}`} passHref>
-        <Title>{post.title}</Title>
+        <PostHeading>{post.title}</PostHeading>
       </Link>
       <CardFooter>
         <Info>

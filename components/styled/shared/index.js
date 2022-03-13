@@ -32,7 +32,6 @@ export const Button = styled.button`
 export const LogoutButton = styled(Button)`
   background: none;
   max-width: 4rem;
-  padding: 0.6rem 0;
   border-bottom: 2px solid ${({ theme }) => theme.colors.text.base};
 `;
 
@@ -76,23 +75,39 @@ export const HeartBtn = styled.button`
   }
 `;
 
-export const Title = styled.h1`
+export const Heading1 = styled.h1`
   font-weight: 600;
   letter-spacing: 0.01em;
-  font-size: 1.7em;
-  margin: 12px 0;
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
   cursor: pointer;
 `;
 
 export const Subtitle = styled.h2`
   font-size: 0.9rem;
-  opacity: 0.8;
   font-weight: 300;
   letter-spacing: 0.04rem;
+  padding-bottom: 1rem;
+  color: ${({ theme }) => theme.colors.text.darker};
 `;
 
 export const Info = styled.h3`
   opacity: 0.6;
   font-weight: 300;
   font-size: 0.9em;
+`;
+
+export const LinkStyled = styled.a`
+  color: #fff;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+export const PostHeading = styled.h2`
+  font-size: 2rem;
+  font-weight: 600;
+  padding-bottom: 0.6rem;
+  letter-spacing: 0.01rem;
+  cursor: pointer;
 `;

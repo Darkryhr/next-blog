@@ -5,7 +5,7 @@ import Loader from '../components/Loader';
 import { Button } from '../components/styled/shared';
 
 // max post to query per page
-const _LIMIT = 1;
+const _LIMIT = 2;
 
 export async function getServerSideProps(context) {
   const postsQuery = firestore
@@ -44,7 +44,7 @@ export default function Home(props) {
       .startAfter(cursor)
       .limit(_LIMIT);
 
-    const newPosts = (await query.get()).docs.map((doc) => doc.data());
+    const newPosts = (await query.get()).docs.map(doc => doc.data());
 
     setPosts(posts.concat(newPosts));
     setLoading(false);
