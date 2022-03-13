@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LinkButton = styled.button`
-  color: ${(props) => props.theme.colors.text.base};
+  color: ${props => props.theme.colors.text.base};
   background: none;
   border: none;
   cursor: pointer;
@@ -19,15 +19,21 @@ export const LinkButton = styled.button`
 export const Button = styled.button`
   background: none;
   border: none;
-  font-weight: 600;
+  font-weight: 500;
   color: ${({ theme }) => theme.colors.text.base};
   cursor: pointer;
-  padding: 1em 1.7em;
   transition: 0.3s all;
   font-size: medium;
   &:hover {
     background: ${({ theme }) => theme.colors.primary.base};
   }
+`;
+
+export const LogoutButton = styled(Button)`
+  background: none;
+  max-width: 4rem;
+  padding: 0.6rem 0;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.text.base};
 `;
 
 export const StrokedButton = styled.button`
@@ -39,12 +45,12 @@ export const StrokedButton = styled.button`
   padding: 10px 30px;
   cursor: pointer;
   transition: 0.3s all;
-  background: ${(props) => props.theme.colors.accent.base};
+  background: ${props => props.theme.colors.accent.base};
   &:hover {
     filter: saturate(1.5);
   }
   &:disabled {
-    background: ${(props) => props.theme.colors.primary.lighter};
+    background: ${props => props.theme.colors.primary.lighter};
     cursor: auto;
   }
 `;
@@ -79,8 +85,10 @@ export const Title = styled.h1`
 `;
 
 export const Subtitle = styled.h2`
-  font-size: 1.1em;
+  font-size: 0.9rem;
   opacity: 0.8;
+  font-weight: 300;
+  letter-spacing: 0.04rem;
 `;
 
 export const Info = styled.h3`

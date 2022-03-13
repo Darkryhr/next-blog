@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Subtitle, Title } from './styled/shared';
+import { auth } from '../lib/firebase';
+import { LogoutButton } from '../components/styled/shared';
+import { useContext } from 'react';
+import { UserContext } from '../lib/context';
 
 const UserProfile = ({ user }) => {
+  const { username } = useContext(UserContext);
+  console.log(username);
   return (
     <ProfileWrapper>
       <ProfileImage src={user?.photoURL} alt='avatar' />
@@ -11,6 +17,11 @@ const UserProfile = ({ user }) => {
           <Subtitle>@{user.username}</Subtitle>
         </p>
         <Title>{user.displayName}</Title>
+        {username === user.username ? (
+          <LogoutButton onClick={() => auth.signOut()}>Logout</LogoutButton>
+        ) : (
+          ''
+        )}
       </InfoWrapper>
     </ProfileWrapper>
   );
@@ -26,6 +37,7 @@ const ProfileImage = styled.img`
 const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
+  padding: 1rem 0;
 `;
 
 const InfoWrapper = styled.div`

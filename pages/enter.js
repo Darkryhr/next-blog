@@ -4,22 +4,23 @@ import { UserContext } from '../lib/context';
 import { useContext } from 'react';
 import { debounce } from 'lodash';
 import { StrokedButton } from '../components/styled/shared';
+import styled from 'styled-components';
 
-const EnterPage = (props) => {
+const EnterPage = props => {
   const { user, username } = useContext(UserContext);
 
   return (
-    <main>
+    <Main>
       {user ? (
         !username ? (
           <UsernameForm />
         ) : (
-          <SignOutButton />
+          'You are already logged in!'
         )
       ) : (
         <SignInButton />
       )}
-    </main>
+    </Main>
   );
 };
 
@@ -46,7 +47,7 @@ const UsernameForm = () => {
     checkUsername(formValue);
   }, [formValue]);
 
-  const onChange = (e) => {
+  const onChange = e => {
     const val = e.target.value.toLowerCase();
     const re = /^(?=[a-zA-Z0-9._]{3,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
 
@@ -64,7 +65,7 @@ const UsernameForm = () => {
   };
 
   const checkUsername = useCallback(
-    debounce(async (username) => {
+    debounce(async username => {
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`);
         const { exists } = await ref.get();
@@ -75,7 +76,7 @@ const UsernameForm = () => {
     []
   );
 
-  const onSubmit = async (e) => {
+  const onSubmit = async e => {
     e.preventDefault();
 
     const userDoc = firestore.doc(`users/${user.uid}`);
@@ -138,3 +139,9 @@ const UsernameMessage = ({ username, isValid, loading }) => {
     return <p></p>;
   }
 };
+
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
