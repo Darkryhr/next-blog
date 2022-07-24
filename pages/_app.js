@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import Layout from '@components/layout';
 import Navbar, { MobileDashboard } from '@components/Navbar';
-import { AuthProvider } from '../lib/auth';
+import { AuthProvider } from '@lib/auth';
+import Layout from '@components/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
