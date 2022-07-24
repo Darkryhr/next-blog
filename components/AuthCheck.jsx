@@ -12,7 +12,7 @@ const AuthCheck = props => {
           <Heading color='red.600' fontSize='9xl'>
             !
           </Heading>
-          <NextLink href='/enter' passHref>
+          <NextLink href='/login' passHref>
             <Button colorScheme='red'>You must be signed in</Button>
           </NextLink>
         </Flex>

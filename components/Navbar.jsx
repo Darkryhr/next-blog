@@ -110,7 +110,7 @@ export const MobileDashboard = () => {
         borderTopColor='gray.200'
         display={{ base: 'flex', md: 'none' }}
       >
-        <NextLink href='/'>
+        <NextLink href='/' passHref>
           <Flex
             direction='column'
             justify='center'
@@ -142,7 +142,7 @@ export const MobileDashboard = () => {
             </Text>
           </Flex>
         </NextLink>
-        <NextLink href='/account'>
+        <NextLink href='/account' passHref>
           <Flex
             direction='column'
             justify='center'
@@ -212,7 +212,7 @@ export const MobileDashboard = () => {
               </Text>
             </>
           ) : (
-            <NextLink href='/login'>
+            <NextLink href='/login' passHref>
               <>
                 <IconButton
                   variant='ghost'
