@@ -1,23 +1,43 @@
-import { firestore, getUserWithUsername, postToJSON } from '../../lib/firebase';
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Icon,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import PostContent from '@components/PostContent';
+import { getAllPostsSnapshot, getPostRef, getUser, getUserPost } from '@lib/db';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import PostContent from '../../components/PostContent';
-import AuthCheck from '../../components/AuthCheck';
-import HeartButton from '../../components/HeartButton';
-import Link from 'next/link';
-import styled from 'styled-components';
-import { Button } from '../../components/styled/shared';
+import HeartButton from '@components/HeartButton';
+import AuthCheck from '@components/AuthCheck';
+
+import NextLink from 'next/link';
+import { useAuth } from '@lib/auth';
+export async function getStaticPaths() {
+  const snapshot = await getAllPostsSnapshot();
+
+  const paths = snapshot.docs.map(doc => {
+    const { slug, username } = doc.data();
+    return {
+      params: { username, slug },
+    };
+  });
+
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
 
 export async function getStaticProps({ params }) {
   const { username, slug } = params;
-  const userDoc = await getUserWithUsername(username);
+  const userDoc = await getUser(username);
 
-  let post, path;
+  if (!userDoc) return;
 
-  if (userDoc) {
-    const postRef = userDoc.ref.collection('posts').doc(slug);
-    post = postToJSON(await postRef.get());
-    path = postRef.path;
-  }
+  const { post, path } = await getUserPost(userDoc.ref.id, slug);
 
   return {
     props: {
@@ -28,66 +48,68 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export async function getStaticPaths() {
-  const snapshot = await firestore.collectionGroup('posts').get();
-
-  const paths = snapshot.docs.map(doc => {
-    const { slug, username } = doc.data();
-    return {
-      params: { username, slug },
-    };
-  });
-
-  return {
-    // paths: [
-    //   {
-    //     params: {},
-    //   },
-    // ],
-    paths,
-    fallback: 'blocking',
-  };
-}
-
 export default function Post(props) {
-  const postRef = firestore.doc(props.path);
+  const postRef = getPostRef(props.path);
   const [realtimePost] = useDocumentData(postRef);
+  const auth = useAuth();
 
   const post = realtimePost || props.post;
   return (
-    <Container>
-      <ContentSection>
-        <PostContent post={post} />
-      </ContentSection>
-      <HeartWrapper>
-        <p>
-          <strong>{post.heartCount || 0} 🤍</strong>
-        </p>
+    <Flex
+      pt={{
+        base: 0,
+        md: 8,
+      }}
+      justify='center'
+      px={{
+        base: 0,
+        md: 4,
+      }}
+      direction={{
+        base: 'column-reverse',
+        md: 'row',
+      }}
+      pb={{
+        base: 0,
+        md: 12,
+      }}
+    >
+      <Flex
+        direction='column'
+        align='center'
+        justify='start'
+        pr={2}
+        py={{
+          base: 4,
+          md: 2,
+        }}
+      >
         <AuthCheck
           fallback={
-            <Link href='/enter' passHref>
-              <Button>Sign Up</Button>
-            </Link>
+            <NextLink href='/login'>
+              <button>💗 Sign Up</button>
+            </NextLink>
           }
         >
           <HeartButton postRef={postRef} />
         </AuthCheck>
-      </HeartWrapper>
-    </Container>
+        <Text fontSize='lg'>{post.heartCount || 0}</Text>
+
+        {auth?.user?.uid === post.uid && (
+          <NextLink href={`/account/${post.slug}`}>
+            <Button>Edit Post</Button>
+          </NextLink>
+        )}
+      </Flex>
+      <Box
+        w='full'
+        maxW={{
+          base: 'none',
+          sm: 'container.lg',
+        }}
+      >
+        <PostContent post={post} />
+      </Box>
+    </Flex>
   );
 }
-
-const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ContentSection = styled.section`
-  padding: 1em 0;
-`;
-
-const HeartWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;

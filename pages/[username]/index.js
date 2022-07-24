@@ -1,13 +1,14 @@
+import { postToJSON } from '@lib/firebase';
 import React from 'react';
-import UserProfile from '../../components/UserProfile';
-import PostFeed from '../../components/PostFeed';
-import { getUserWithUsername, postToJSON } from '../../lib/firebase';
-import Metatags from '../../components/Metatags';
+import UserProfile from '@components/UserProfile';
+import { getUser, getUserPosts } from '@lib/db';
+import PostFeed from '@components/PostFeed';
+import { Box } from '@chakra-ui/react';
 
 export async function getServerSideProps({ query }) {
   const { username } = query;
 
-  const userDoc = await getUserWithUsername(username);
+  const userDoc = await getUser(username);
 
   if (!userDoc) {
     return {
@@ -15,20 +16,9 @@ export async function getServerSideProps({ query }) {
     };
   }
 
-  // JSON serializable data
-  let user = null;
-  let posts = null;
+  const user = userDoc.data();
 
-  if (userDoc) {
-    user = userDoc.data();
-    const postsQuery = userDoc.ref
-      .collection('posts')
-      .where('published', '==', true)
-      .orderBy('createdAt', 'desc')
-      .limit(5);
-
-    posts = (await postsQuery.get()).docs.map(postToJSON);
-  }
+  const posts = (await getUserPosts(userDoc.ref.id)).posts.map(postToJSON);
 
   return {
     props: {
@@ -40,11 +30,10 @@ export async function getServerSideProps({ query }) {
 
 const UserProfilePage = ({ user, posts }) => {
   return (
-    <main>
-      <Metatags />
+    <Box as='main' maxW='container.lg' mx='auto' minH='calc(100vh)'>
       <UserProfile user={user} />
       <PostFeed posts={posts} />
-    </main>
+    </Box>
   );
 };
 

@@ -1,0 +1,25 @@
+.markdown > h1 {
+  font-weight: bold;
+  font-size: 1.7rem;
+}
+
+.markdown > h2 {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.markdown > p {
+  margin-bottom: 1.25em;
+  line-height: 1.65;
+}
+
+.markdown > ol {
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+}
+.markdown > pre {
+  background-color: #f3f3f3;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
