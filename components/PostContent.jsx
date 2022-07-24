@@ -40,7 +40,12 @@ const PostContent = ({ post }) => {
       </Heading>
 
       <Box mt={4} py={3} minH='4xl'>
-        <div className={styles.markdown}>
+        <div
+          className={styles.markdown}
+          style={{
+            overflowX: 'hidden',
+          }}
+        >
           <ReactMarkdown>{post?.content}</ReactMarkdown>
         </div>
       </Box>
