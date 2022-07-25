@@ -7,7 +7,7 @@ import {
   fromMillis,
 } from '../lib/db';
 import { _LIMIT } from '../constants';
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import { LogoIcon } from '@components/Logo';
 
 export async function getServerSideProps(context) {
@@ -92,6 +92,11 @@ export default function Home(props) {
           <Heading color='gray.700' fontSize='xl'>
             You have reached the end!
           </Heading>
+        </Flex>
+      )}
+      {loading && (
+        <Flex w='full' h={12} align='center' justify='center'>
+          <Spinner />
         </Flex>
       )}
     </Flex>

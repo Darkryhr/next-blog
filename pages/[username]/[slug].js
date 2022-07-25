@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Icon,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import PostContent from '@components/PostContent';
 import { getAllPostsSnapshot, getPostRef, getUser, getUserPost } from '@lib/db';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
@@ -15,6 +7,8 @@ import AuthCheck from '@components/AuthCheck';
 
 import NextLink from 'next/link';
 import { useAuth } from '@lib/auth';
+import { AiFillHeart } from 'react-icons/ai';
+import SkeletonPost from '@components/SkeletonPost';
 export async function getStaticPaths() {
   const snapshot = await getAllPostsSnapshot();
 
@@ -50,10 +44,12 @@ export async function getStaticProps({ params }) {
 
 export default function Post(props) {
   const postRef = getPostRef(props.path);
-  const [realtimePost] = useDocumentData(postRef);
+  const [realtimePost, loading] = useDocumentData(postRef);
   const auth = useAuth();
 
   const post = realtimePost || props.post;
+
+  if (loading) return <SkeletonPost />;
   return (
     <Flex
       pt={{
@@ -87,13 +83,15 @@ export default function Post(props) {
         <AuthCheck
           fallback={
             <NextLink href='/login'>
-              <button>💗 Sign Up</button>
+              <Button leftIcon={<AiFillHeart />}>Sign Up</Button>
             </NextLink>
           }
         >
           <HeartButton postRef={postRef} />
         </AuthCheck>
-        <Text fontSize='lg'>{post.heartCount || 0}</Text>
+        <Text fontSize='lg' fontWeight='semibold' mt={2}>
+          {post.heartCount || 0}
+        </Text>
 
         {auth?.user?.uid === post.uid && (
           <NextLink href={`/account/${post.slug}`}>
@@ -108,7 +106,7 @@ export default function Post(props) {
           sm: 'container.lg',
         }}
       >
-        <PostContent post={post} />
+        {loading ? <SkeletonPost /> : <PostContent post={post} />}
       </Box>
     </Flex>
   );

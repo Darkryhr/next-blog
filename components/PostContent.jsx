@@ -35,7 +35,7 @@ const PostContent = ({ post }) => {
           </time>
         </Text>
       </Flex>
-      <Heading color='gray.700' fontSize='6xl'>
+      <Heading color='gray.700' fontSize='5xl'>
         {post.title}
       </Heading>
 
